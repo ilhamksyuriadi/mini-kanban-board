@@ -8,15 +8,11 @@ export default class Test extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            show: false,
-            title: ''
+            show: false
         }
-
-        this.title = React.createRef(); 
 
         this.handleClose = this.handleClose.bind(this);
         this.handleShow = this.handleShow.bind(this);
-        this.handleChangeTitle = this.handleChangeTitle.bind(this)
     }
 
     handleClose(){
@@ -25,18 +21,6 @@ export default class Test extends Component {
 
     handleShow(){
         this.setState({show: true})
-    }
-
-    handleSubmit(event){
-        event.preventDefault();
-        console.log('submit clicked', event)
-        console.log('asdas', this.state.title)
-        
-    }
-
-    handleChangeTitle(){
-        const value = this.title.current.value;
-        console.log(value)
     }
 
     render() {
@@ -50,13 +34,13 @@ export default class Test extends Component {
                         <Modal.Title>Add New Task</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <Form onSubmit={this.handleSubmit}>
+                        <Form >
                             <br />
                             <Form.Group>
                                 <Form.Row>
                                 <Form.Label column lg={2}>Title</Form.Label>
                                 <Col>
-                                    <Form.Control name="title" onChange={this.handleChangeTitle} ref={this.title} placeholder="Enter task title..." />
+                                    <Form.Control placeholder="Enter task title..." />
                                 </Col>
                                 </Form.Row>
                             </Form.Group>
