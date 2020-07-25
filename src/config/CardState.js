@@ -12,19 +12,19 @@ export const CardState = {
     cards: {
       'card-1': {
         id: 'card-1',
-        title: 'todo',
+        title: 'Backlog',
         taskIds: ['task-1', 'task-2', 'task-6', 'task-7', 'task-8'],
         color: '#FFBA08',
       },
       'card-2': {
         id: 'card-2',
-        title: 'doing',
+        title: 'To Do',
         taskIds: ['task-3', 'task-4', 'task-5',],
         color: '#17C9FF',
       },
       'card-3': {
         id: 'card-3',
-        title: 'completed',
+        title: 'Done',
         taskIds: [],
         color: '#14E668',
       },

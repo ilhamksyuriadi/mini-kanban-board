@@ -33,8 +33,8 @@ export class FormComponent extends Component {
     render() {
         return(
             <div>
-                <Button variant="success" onClick={this.handleShow}>
-                    Add Task
+                <Button variant="light" size="sm" onClick={this.handleShow}>
+                    + Add Task
                 </Button>
                 <Modal show={this.state.show} onHide={this.handleClose}>
                     <Modal.Header closeButton>
