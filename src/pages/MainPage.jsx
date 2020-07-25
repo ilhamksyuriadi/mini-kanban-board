@@ -1,47 +1,114 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import './MainPage.css';
-import { FormComponent } from '../components/FormComponent';
-import { v4 as uuid } from 'uuid'
+import { CardComponent } from '../components/CardComponent';
+import { CardState } from '../config/CardState'
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import Card from '../components/Card';
+import styled from 'styled-components';
 
-export default class MainPage extends Component {
+const CardContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 25px;
+  min-height: 100vh;
+`
 
-    constructor(props) {
-        super(props);
+const MainPage = () => {
+    const [state, setState] = useState(CardState)
 
-        this.title = React.createRef();
-        this.assignee = React.createRef();
-        this.tag = React.createRef();
-        this.start_date = React.createRef();
-        this.end_date = React.createRef();
-
-        this.handleSubmit = this.handleSubmit.bind(this)
-    }
-
-    handleSubmit(event){
-        event.preventDefault();
-        let new_task = {
-            issue_id: uuid(),
-            title: this.title.current.value,
-            assignee: this.assignee.current.value,
-            start_date: this.start_date.current.value,
-            end_date: this.end_date.current.value,
-            tags: this.tag.current.value,
+    const handleDragEnd = (result) => {
+        const {draggableId, source, destination, type} = result;
+        if ((!destination) || (source.droppableId === destination.droppableId && source.index === destination.index)) {
+          return;
         }
-        console.log('submit clicked', new_task)
+    
+        if (type === "card") {
+          const newCardOrder = Array.from(state.cardOrder);
+          newCardOrder.splice(source.index, 1);
+          newCardOrder.splice(destination.index, 0, draggableId);
+          
+          const newState = {
+            ...state,
+            cardOrder: newCardOrder
+          }
+          setState(newState);
+          return;
+        }
+    
+        if (type === "task") {
+          const start = state.cards[source.droppableId];
+          const finish = state.cards[destination.droppableId];
+      
+          if (start === finish) {
+            const card = state.cards[source.droppableId];
+            const newTaskIds = Array.from(card.taskIds);
+            newTaskIds.splice(source.index, 1);
+            newTaskIds.splice(destination.index, 0, draggableId);
+            const newCard = {
+              ...card,
+              taskIds: newTaskIds
+            };
+            const newState = {
+              ...state,
+              cards: {
+                ...state.cards,
+                [newCard.id]: newCard
+              }
+            }
+            setState(newState);
+            return
+          }
+          // move to another card
+          const startTaskIds = Array.from(start.taskIds);
+          startTaskIds.splice(source.index, 1);
+          const newStart = {
+            ...start,
+            taskIds: startTaskIds
+          }
+      
+          const finishTaskIds = Array.from(finish.taskIds);
+          finishTaskIds.splice(destination.index, 0, draggableId);
+          const newFinish = {
+            ...finish,
+            taskIds: finishTaskIds
+          }
+      
+          const newState = {
+            ...state,
+            cards: {
+              ...state.cards,
+              [newStart.id]: newStart,
+              [newFinish.id]: newFinish
+            }
+          }
+          setState(newState);
+          return;
+        }
     }
 
-    render() {
-        return(
-            <div>
-                <FormComponent 
-                    onSubmit = {this.handleSubmit}
-                    title = {this.title}
-                    assignee = {this.assignee}
-                    tag = {this.tag}
-                    start_date = {this.start_date}
-                    end_date = {this.end_date}
-                ></FormComponent>
-            </div>
-        )
-    }
+    return (
+        <React.Fragment>
+            <h1>Kanban Board</h1>
+            <DragDropContext onDragEnd={handleDragEnd}>
+                <Droppable droppableId="all-cards" direction="horizontal" type="card">
+                    {(provided) => (
+                    <CardContainer ref={provided.innerRef} {...provided.droppableProps}>
+                        {
+                            state.cardOrder.map((cardId, index) => {
+                                const card = state.cards[cardId];
+                                const tasks = card.taskIds.map(taskId => state.tasks[taskId]);
+                                return <Card key={cardId} card={card} tasks={tasks} index={index} />
+                            })
+                        }
+                        {provided.placeholder}
+                    </CardContainer>
+                    )}
+                </Droppable>
+            </DragDropContext>
+        </React.Fragment>
+    )
 }
+
+export default MainPage;

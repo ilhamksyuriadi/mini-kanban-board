@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './FormComponent.css';
 import Modal from 'react-bootstrap/Modal';
 import { Button, Form, Col, Row } from 'react-bootstrap';
 
@@ -34,8 +33,8 @@ export class FormComponent extends Component {
     render() {
         return(
             <div>
-                <Button variant="primary" onClick={this.handleShow}>
-                    Launch modal
+                <Button variant="success" onClick={this.handleShow}>
+                    Add Task
                 </Button>
                 <Modal show={this.state.show} onHide={this.handleClose}>
                     <Modal.Header closeButton>

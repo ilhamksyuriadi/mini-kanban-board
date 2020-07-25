@@ -3,9 +3,9 @@ import MainPage from './pages/MainPage';
 
 function App() {
   return (
-    <div className="App">
+    <React.Fragment>
       <MainPage></MainPage>
-    </div>
+    </React.Fragment>
   );
 }
 
