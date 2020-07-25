@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './MainPage.css';
 import { FormComponent } from '../components/FormComponent';
+import { v4 as uuid } from 'uuid'
 
 export default class MainPage extends Component {
 
@@ -9,35 +10,36 @@ export default class MainPage extends Component {
 
         this.title = React.createRef();
         this.assignee = React.createRef();
+        this.tag = React.createRef();
         this.start_date = React.createRef();
+        this.end_date = React.createRef();
 
-        this.state = {
-            title : '',
-            assignee : ''
+        this.handleSubmit = this.handleSubmit.bind(this)
+    }
+
+    handleSubmit(event){
+        event.preventDefault();
+        let new_task = {
+            issue_id: uuid(),
+            title: this.title.current.value,
+            assignee: this.assignee.current.value,
+            start_date: this.start_date.current.value,
+            end_date: this.end_date.current.value,
+            tags: this.tag.current.value,
         }
-
-        this.handleChangeTitle = this.handleChangeTitle.bind(this);
-        this.handleChangeAssignee = this.handleChangeAssignee.bind(this);
-    }
-
-    handleChangeTitle(){
-        const value = this.title.current.value;
-        this.setState({title: value})
-    }
-
-    handleChangeAssignee(){
-        const value = this.assignee.current.value;
-        this.setState({assignee: value})
+        console.log('submit clicked', new_task)
     }
 
     render() {
         return(
             <div>
                 <FormComponent 
-                    onTitleChange = {this.handleChangeTitle} 
+                    onSubmit = {this.handleSubmit}
                     title = {this.title}
-                    onAssigneeChange = {this.handleChangeAssignee}
                     assignee = {this.assignee}
+                    tag = {this.tag}
+                    start_date = {this.start_date}
+                    end_date = {this.end_date}
                 ></FormComponent>
             </div>
         )

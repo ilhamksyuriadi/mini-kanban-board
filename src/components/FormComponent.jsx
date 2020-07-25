@@ -42,13 +42,13 @@ export class FormComponent extends Component {
                         <Modal.Title>Add New Task</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <Form onSubmit={this.handleSubmit}>
+                        <Form onSubmit={this.props.onSubmit}>
                             <br />
                             <Form.Group>
                                 <Form.Row>
                                 <Form.Label column lg={2}>Title</Form.Label>
                                 <Col>
-                                    <Form.Control onChange={this.props.onTitleChange} ref={this.props.title} placeholder="Enter task title..." />
+                                    <Form.Control ref={this.props.title} placeholder="Enter task title..." />
                                 </Col>
                                 </Form.Row>
                             </Form.Group>
@@ -57,7 +57,7 @@ export class FormComponent extends Component {
                             <Form.Row>
                                 <Form.Label column lg={2}>Assignee</Form.Label>
                                 <Col>
-                                    <Form.Control onChange={this.props.onAssigneeChange} ref={this.props.assignee} placeholder="Enter assignee name..." />
+                                    <Form.Control ref={this.props.assignee} placeholder="Enter assignee name..." />
                                 </Col>
                                 </Form.Row>
                             </Form.Group>
@@ -66,7 +66,7 @@ export class FormComponent extends Component {
                             <Form.Row>
                                 <Form.Label column lg={2}>Tags</Form.Label>
                                 <Col>
-                                    <Form.Control as="select" defaultValue="Front End">
+                                    <Form.Control ref={this.props.tag} as="select" defaultValue="Front End">
                                         <option>Front End</option>
                                         <option>Back End</option>
                                         <option>Research</option>
@@ -82,7 +82,7 @@ export class FormComponent extends Component {
                                     <Form.Group>
                                         <Form.Row>
                                             <Form.Label>Start Date</Form.Label>
-                                            <Form.Control size="sm" type="date" placeholder="Enter start date..." />
+                                            <Form.Control ref={this.props.start_date} size="sm" type="date" placeholder="Enter start date..." />
                                         </Form.Row>
                                     </Form.Group>
                                 </Col>
@@ -90,7 +90,7 @@ export class FormComponent extends Component {
                                     <Form.Group>
                                         <Form.Row>
                                             <Form.Label>End Date</Form.Label>
-                                            <Form.Control size="sm" type="date" placeholder="Enter end date..." />
+                                            <Form.Control ref={this.props.end_date} size="sm" type="date" placeholder="Enter end date..." />
                                         </Form.Row>
                                     </Form.Group>
                                 </Col>
