@@ -1,119 +1,44 @@
 import React, { Component } from 'react';
 import './MainPage.css';
-import Modal from 'react-bootstrap/Modal';
-import { Button, Form, Col, Row } from 'react-bootstrap';
+import { FormComponent } from '../components/FormComponent';
 
-export default class Test extends Component {
+export default class MainPage extends Component {
 
     constructor(props) {
         super(props);
+
+        this.title = React.createRef();
+        this.assignee = React.createRef();
+        this.start_date = React.createRef();
+
         this.state = {
-            show: false,
-            title: ''
+            title : '',
+            assignee : ''
         }
 
-        this.title = React.createRef(); 
-
-        this.handleClose = this.handleClose.bind(this);
-        this.handleShow = this.handleShow.bind(this);
-        this.handleChangeTitle = this.handleChangeTitle.bind(this)
-    }
-
-    handleClose(){
-        this.setState({show: false})
-    }
-
-    handleShow(){
-        this.setState({show: true})
-    }
-
-    handleSubmit(event){
-        event.preventDefault();
-        console.log('submit clicked', event)
-        console.log('asdas', this.state.title)
-        
+        this.handleChangeTitle = this.handleChangeTitle.bind(this);
+        this.handleChangeAssignee = this.handleChangeAssignee.bind(this);
     }
 
     handleChangeTitle(){
         const value = this.title.current.value;
-        console.log(value)
+        this.setState({title: value})
+    }
+
+    handleChangeAssignee(){
+        const value = this.assignee.current.value;
+        this.setState({assignee: value})
     }
 
     render() {
         return(
             <div>
-                <Button variant="primary" onClick={this.handleShow}>
-                    Launch modal
-                </Button>
-                <Modal show={this.state.show} onHide={this.handleClose}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>Add New Task</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <Form onSubmit={this.handleSubmit}>
-                            <br />
-                            <Form.Group>
-                                <Form.Row>
-                                <Form.Label column lg={2}>Title</Form.Label>
-                                <Col>
-                                    <Form.Control name="title" onChange={this.handleChangeTitle} ref={this.title} placeholder="Enter task title..." />
-                                </Col>
-                                </Form.Row>
-                            </Form.Group>
-                            <br />
-                            <Form.Group>
-                            <Form.Row>
-                                <Form.Label column lg={2}>Assignee</Form.Label>
-                                <Col>
-                                    <Form.Control placeholder="Enter assignee name..." />
-                                </Col>
-                                </Form.Row>
-                            </Form.Group>
-                            <br />
-                            <Form.Group>
-                            <Form.Row>
-                                <Form.Label column lg={2}>Tags</Form.Label>
-                                <Col>
-                                    <Form.Control as="select" defaultValue="Front End">
-                                        <option>Front End</option>
-                                        <option>Back End</option>
-                                        <option>Research</option>
-                                        <option>Dev Ops</option>
-                                        <option>Design</option>
-                                    </Form.Control>
-                                </Col>
-                                </Form.Row>
-                            </Form.Group>
-                            <br />
-                            <Row>
-                                <Col>
-                                    <Form.Group>
-                                        <Form.Row>
-                                            <Form.Label>Start Date</Form.Label>
-                                            <Form.Control size="sm" type="date" placeholder="Enter start date..." />
-                                        </Form.Row>
-                                    </Form.Group>
-                                </Col>
-                                <Col>
-                                    <Form.Group>
-                                        <Form.Row>
-                                            <Form.Label>End Date</Form.Label>
-                                            <Form.Control size="sm" type="date" placeholder="Enter end date..." />
-                                        </Form.Row>
-                                    </Form.Group>
-                                </Col>
-                            </Row>
-                            <br />
-                            <Row>
-                                <Col md="auto">
-                                    <Button className="submit-button" variant="primary" type="submit">
-                                        Submit
-                                    </Button>
-                                </Col>
-                            </Row>
-                        </Form>
-                    </Modal.Body>
-                </Modal>
+                <FormComponent 
+                    onTitleChange = {this.handleChangeTitle} 
+                    title = {this.title}
+                    onAssigneeChange = {this.handleChangeAssignee}
+                    assignee = {this.assignee}
+                ></FormComponent>
             </div>
         )
     }
