@@ -20,7 +20,7 @@ export class FormComponent extends Component {
                     </Modal.Header>
                     <Modal.Body>
                         <Form onSubmit={this.props.onSubmit}>
-                            <input type="text"></input>
+                            <Form.Control style={{display: "none"}} ref={this.props.card} defaultValue={this.props.card_id} />
                             <br />
                             <Form.Group>
                                 <Form.Row>

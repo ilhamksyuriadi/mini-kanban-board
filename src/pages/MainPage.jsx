@@ -136,7 +136,8 @@ const MainPage = () => {
     assignee: React.createRef(),
     tags: React.createRef(),
     start_date: React.createRef(),
-    end_date: React.createRef()
+    end_date: React.createRef(),
+    card: React.createRef()
   }
 
   const handleSubmit = (event) => {
@@ -148,16 +149,16 @@ const MainPage = () => {
       tags: value.tags.current.value,
       start_date: value.start_date.current.value,
       end_date: value.end_date.current.value,
+      card: value.card.current.value
     }
     alert("Task added !");
     updateState(new_task)
   }
 
   const updateState = (new_task) => {
-    console.log(new_task);
     let new_state = {...state};
     new_state.tasks[new_task.id] = new_task;
-    new_state.cards['card-2'].taskIds.push(new_task.id);
+    new_state.cards[new_task.card].taskIds.push(new_task.id);
     setState(new_state)
     console.log('from update state', new_task);
   }
@@ -170,17 +171,18 @@ const MainPage = () => {
             {(provided) => (
               <CardContainer ref={provided.innerRef} {...provided.droppableProps}>
                 {
-                  state.cardOrder.map((cardId, index) => {
-                    const card = state.cards[cardId];
-                    const tasks = card.taskIds.map(taskId => state.tasks[taskId]);
-                    return <Card formHandle = {handleSubmit} 
-                                formValue = {value}
-                                key = {cardId} 
-                                card = {card} 
-                                tasks = {tasks} 
-                                index = {index}
-                            />
-                  })
+                    state.cardOrder.map((cardId, index) => {
+                        const card = state.cards[cardId];
+                        const tasks = card.taskIds.map(taskId => state.tasks[taskId]);
+                        return <Card formHandle = {handleSubmit} 
+                                    formValue = {value}
+                                    key = {cardId} 
+                                    card = {card}
+                                    tasks = {tasks} 
+                                    index = {index}
+                                    {...provided.card}
+                                />
+                    })
                 }
                 {provided.placeholder}
               </CardContainer>

@@ -50,6 +50,7 @@ const Card = ({card, tasks, index, formHandle, formValue}) => {
                     <div className="card-head">
                         <h1>{card.title}</h1>
                         <FormComponent
+                            card_id = {card.id}
                             onSubmit = {formHandle}
                             onShowModal = {showModal}
                             onHideModal = {hideModal}
@@ -59,6 +60,7 @@ const Card = ({card, tasks, index, formHandle, formValue}) => {
                             tag = {formValue.tags}
                             start_date = {formValue.start_date}
                             end_date = {formValue.end_date}
+                            card = {formValue.card}
                         ></FormComponent>
                     </div>
                     <TaskContainer ref={provided2.innerRef} {...provided2.droppableProps}>
