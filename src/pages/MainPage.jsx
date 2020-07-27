@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import './MainPage.css';
 import { CardState } from '../config/CardState';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import Card from '../components/Card';
 import styled from 'styled-components';
 import { v4 as uuid } from 'uuid';
-import TaskState from '../config/TaskData.json';
 
 const Title = styled.h1`
   color: #7B7B7B;
@@ -25,41 +24,7 @@ const CardContainer = styled.div`
 `
 
 const MainPage = () => {
-  const [state, setState] = useState(
-    {
-        tasks: {
-            'task-1': { 
-                id: 'task-1', 
-                title: 'Salto',
-                assignee: 'saprol',
-                start_date: '27-9-20',
-                end_date: '28-9-20',
-                tags: 'Front end'
-            }
-        },
-        cards: {
-            'card-1': {
-                id: 'card-1',
-                title: 'Backlog',
-                taskIds: ['task-1'],
-                color: '#FFBA08',
-            },
-            'card-2': {
-                id: 'card-2',
-                title: 'To Do',
-                taskIds: [],
-                color: '#17C9FF',
-            },
-            'card-3': {
-                id: 'card-3',
-                title: 'Done',
-                taskIds: [],
-                color: '#14E668',
-            },
-        },
-        cardOrder: ['card-1', 'card-2', 'card-3']
-    }
-  );
+  const [state, setState] = useState(CardState);
 
   const onDragEnd = (result) => {
     const {draggableId, source, destination, type} = result;

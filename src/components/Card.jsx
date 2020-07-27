@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Task from './Task';
 import styled from 'styled-components';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
-import { FormComponent } from './FormComponent';
+import { FormModal } from './FormModal';
 import './Card.css'
 
 const CardContainer = styled.div`
@@ -49,7 +49,7 @@ const Card = ({card, tasks, index, formHandle, formValue}) => {
                 <CardContainer ref={provided.innerRef} color={card.color} {...provided.dragHandleProps} isDraggingOver={snapshot.isDraggingOver} {...provided.draggableProps}>
                     <div className="card-head">
                         <h1>{card.title}</h1>
-                        <FormComponent
+                        <FormModal
                             card_id = {card.id}
                             onSubmit = {formHandle}
                             onShowModal = {showModal}
@@ -61,7 +61,7 @@ const Card = ({card, tasks, index, formHandle, formValue}) => {
                             start_date = {formValue.start_date}
                             end_date = {formValue.end_date}
                             card = {formValue.card}
-                        ></FormComponent>
+                        ></FormModal>
                     </div>
                     <TaskContainer ref={provided2.innerRef} {...provided2.droppableProps}>
                     {tasks.map((task, index) => <Task key={task.id} task={task} index={index} /> )}
