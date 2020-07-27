@@ -1,0 +1,26 @@
+[
+    {
+        "issue-id": "task-1",
+        "title": "ini title 1",
+        "assignee": "ini assignee 1",
+        "start_date": "ini start date 1",
+        "end_date": "ini end date 1",
+        "tags": "ini tags 1"
+    },
+    {
+        "issue-id": "task-2",
+        "title": "ini title 2",
+        "assignee": "ini assignee 2",
+        "start_date": "ini start date 2",
+        "end_date": "ini end date 2",
+        "tags": "ini tags 2"
+    },
+    {
+        "issue-id": "task-3",
+        "title": "ini title 3",
+        "assignee": "ini assignee 3",
+        "start_date": "ini start date 3",
+        "end_date": "ini end date 3",
+        "tags": "ini tags 3"
+    }
+]

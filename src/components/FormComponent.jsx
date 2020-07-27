@@ -27,7 +27,6 @@ export class FormComponent extends Component {
     handleSubmit(event){
         event.preventDefault();
         console.log('submit clicked', event)
-        console.log('asdas', this.state.title)
     }
 
     render() {

@@ -2,3 +2,13 @@ h1{
     text-align: center;
     color: rgb(97, 97, 97);
 }
+
+.card-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 25px;
+    min-height: 100vh;
+    background-color: red;
+}
