@@ -116,7 +116,7 @@ const MainPage = () => {
       end_date: value.end_date.current.value,
       card: value.card.current.value
     }
-    alert("Task added ! Please close the form to create task at other card");
+    alert("Task added ! Close to add another task");
     updateState(new_task)
   }
 
