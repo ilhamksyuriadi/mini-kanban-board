@@ -6,36 +6,15 @@ export class FormComponent extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            show: false
-        }
-
-        this.title = React.createRef(); 
-
-        this.handleClose = this.handleClose.bind(this);
-        this.handleShow = this.handleShow.bind(this);
-    }
-
-    handleClose(){
-        this.setState({show: false})
-    }
-
-    handleShow(){
-        this.setState({show: true})
-    }
-
-    handleSubmit(event){
-        event.preventDefault();
-        console.log('submit clicked', event)
     }
 
     render() {
         return(
             <div>
-                <Button variant="light" size="sm" onClick={this.handleShow}>
+                <Button variant="light" size="sm" onClick={this.props.onShowModal}>
                     + Add Task
                 </Button>
-                <Modal show={this.state.show} onHide={this.handleClose}>
+                <Modal show={this.props.modal_state} onHide={this.props.onHideModal}>
                     <Modal.Header closeButton>
                         <Modal.Title>Add New Task</Modal.Title>
                     </Modal.Header>

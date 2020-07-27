@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Task from './Task';
 import styled from 'styled-components';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
@@ -21,7 +21,10 @@ const TaskContainer = styled.div`
   width: 100%;
 `
 
-function Card({card, tasks, index}) {
+const Card = ({card, tasks, index}) => {
+  const [state, setState] = useState({
+    modalState: false
+  })
 
   let task = {
     title: React.createRef(),
@@ -29,6 +32,14 @@ function Card({card, tasks, index}) {
     tags: React.createRef(),
     start_date: React.createRef(),
     end_date: React.createRef()
+  }
+
+  const showModal = () => {
+    setState({modalState: true})
+  }
+
+  const hideModal = () => {
+    setState({modalState: false})
   }
 
   const handleSubmit = (event) => {
@@ -41,8 +52,9 @@ function Card({card, tasks, index}) {
       start_date: task.start_date.current.value,
       end_date: task.end_date.current.value
     }
-    alert("Task added !")
-    console.log('submit clickeddded', new_task)
+    alert("Task added !");
+    console.log('submit clickeddded', new_task);
+    hideModal();
   }
 
   return (
@@ -55,6 +67,9 @@ function Card({card, tasks, index}) {
                         <h1>{card.title}</h1>
                         <FormComponent
                           onSubmit = {handleSubmit}
+                          onShowModal = {showModal}
+                          onHideModal = {hideModal}
+                          modal_state = {state.modalState}
                           title = {task.title}
                           assignee = {task.assignee}
                           tag = {task.tags}
