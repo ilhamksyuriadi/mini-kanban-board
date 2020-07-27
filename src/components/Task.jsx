@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import {Draggable} from 'react-beautiful-dnd';
+import './Task.css';
 
 const TaskList = styled.div`
   width: 100%;
@@ -26,7 +27,17 @@ function Task({task, index}) {
     <Draggable draggableId={task.id} index={index}>
       {(provided, snapshot) => (
         <TaskList ref={provided.innerRef} isDragging={snapshot.isDragging} {...provided.draggableProps} {...provided.dragHandleProps}>
-          <TaskListText>{task.title} {task.assignee} {task.start_date} {task.end_date} {task.tags}</TaskListText>
+          <div className="task-body">
+            <h4>{task.title}</h4>
+            <div className="sub">
+              <p><span className="bold-text">Assignee:</span> {task.assignee}</p>
+              <p><span className="bold-text">Tags:</span> {task.tags}</p>
+            </div>
+            <div className="sub">
+              <p><span className="bold-text">Start Date:</span> {task.start_date}</p>
+              <p><span className="bold-text">End Date:</span> {task.end_date}</p>
+            </div>
+          </div>
         </TaskList>
       )}
     </Draggable>

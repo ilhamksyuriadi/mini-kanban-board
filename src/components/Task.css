@@ -1,0 +1,21 @@
+.task-body{
+    display: flex;
+    flex-direction: column;
+    padding: 3px 10px;
+    color: rgb(71, 71, 71);
+}
+
+.task-body .sub {
+    display: flex;
+    justify-content: space-between;
+}
+
+.task-body .sub p {
+    font-size: 14px;
+    width: 50%;
+    margin: 0;
+}
+
+.task-body .sub .bold-text {
+    font-weight: bold;
+}
