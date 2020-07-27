@@ -28,13 +28,13 @@ export const CardState =     {
           id: 'card-2',
           title: 'To Do',
           taskIds: [],
-          color: '#17C9FF',
+          color: '#FFBA08',
       },
       'card-3': {
           id: 'card-3',
           title: 'Done',
           taskIds: [],
-          color: '#14E668',
+          color: '#FFBA08',
       },
   },
   cardOrder: ['card-1', 'card-2', 'card-3']

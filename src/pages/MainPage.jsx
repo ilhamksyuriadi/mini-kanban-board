@@ -6,14 +6,6 @@ import Card from '../components/Card';
 import styled from 'styled-components';
 import { v4 as uuid } from 'uuid';
 
-const Title = styled.h1`
-  color: #7B7B7B;
-  font-family: sans-serif;
-  font-size: 30px;
-  text-align: center;
-  padding-top: 25px;
-`
-
 const CardContainer = styled.div`
   width: 100%;
   display: flex;
@@ -130,30 +122,35 @@ const MainPage = () => {
 
   return (
     <React.Fragment>
-      <Title>Kanban Board</Title>
-      <DragDropContext onDragEnd={onDragEnd}>
-          <Droppable droppableId="all-cards" direction="horizontal" type="card">
-            {(provided) => (
-              <CardContainer ref={provided.innerRef} {...provided.droppableProps}>
-                {
-                    state.cardOrder.map((cardId, index) => {
-                        const card = state.cards[cardId];
-                        const tasks = card.taskIds.map(taskId => state.tasks[taskId]);
-                        return <Card formHandle = {handleSubmit} 
-                                    formValue = {value}
-                                    key = {cardId} 
-                                    card = {card}
-                                    tasks = {tasks} 
-                                    index = {index}
-                                    {...provided.card}
-                                />
-                    })
-                }
-                {provided.placeholder}
-              </CardContainer>
-            )}
-          </Droppable>
-      </DragDropContext>
+        <div className="header">
+            <h1>Kanban Board</h1>
+        </div>
+        <DragDropContext onDragEnd={onDragEnd}>
+            <Droppable droppableId="all-cards" direction="horizontal" type="card">
+                {(provided) => (
+                <CardContainer ref={provided.innerRef} {...provided.droppableProps}>
+                    {
+                        state.cardOrder.map((cardId, index) => {
+                            const card = state.cards[cardId];
+                            const tasks = card.taskIds.map(taskId => state.tasks[taskId]);
+                            return <Card formHandle = {handleSubmit} 
+                                        formValue = {value}
+                                        key = {cardId} 
+                                        card = {card}
+                                        tasks = {tasks} 
+                                        index = {index}
+                                        {...provided.card}
+                                    />
+                        })
+                    }
+                    {provided.placeholder}
+                </CardContainer>
+                )}
+            </Droppable>
+        </DragDropContext>
+        <div className="footer">
+            <h6>@2020 by ilhamksyuriadi</h6>
+        </div>
     </React.Fragment>
   )
   
