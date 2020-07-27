@@ -3,7 +3,6 @@ import Task from './Task';
 import styled from 'styled-components';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { FormComponent } from './FormComponent';
-import { v4 as uuid } from 'uuid';
 import './Card.css'
 
 const CardContainer = styled.div`
@@ -21,7 +20,7 @@ const TaskContainer = styled.div`
   width: 100%;
 `
 
-const Card = ({card, tasks, index}) => {
+const Card = ({card, tasks, index, formHandle, formValue}) => {
   const [state, setState] = useState({
     modalState: false
   })
@@ -42,21 +41,6 @@ const Card = ({card, tasks, index}) => {
     setState({modalState: false})
   }
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    let new_task = {
-      issue_id: uuid(),
-      title: task.title.current.value,
-      assignee: task.assignee.current.value,
-      tags: task.tags.current.value,
-      start_date: task.start_date.current.value,
-      end_date: task.end_date.current.value
-    }
-    alert("Task added !");
-    console.log('submit clickeddded', new_task);
-    hideModal();
-  }
-
   return (
     <Draggable draggableId={card.id} index={index}>
       {(provided) => (  
@@ -66,15 +50,15 @@ const Card = ({card, tasks, index}) => {
                     <div className="card-head">
                         <h1>{card.title}</h1>
                         <FormComponent
-                          onSubmit = {handleSubmit}
-                          onShowModal = {showModal}
-                          onHideModal = {hideModal}
-                          modal_state = {state.modalState}
-                          title = {task.title}
-                          assignee = {task.assignee}
-                          tag = {task.tags}
-                          start_date = {task.start_date}
-                          end_date = {task.end_date}
+                            onSubmit = {formHandle}
+                            onShowModal = {showModal}
+                            onHideModal = {hideModal}
+                            modal_state = {state.modalState}
+                            title = {formValue.title}
+                            assignee = {formValue.assignee}
+                            tag = {formValue.tags}
+                            start_date = {formValue.start_date}
+                            end_date = {formValue.end_date}
                         ></FormComponent>
                     </div>
                     <TaskContainer ref={provided2.innerRef} {...provided2.droppableProps}>

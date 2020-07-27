@@ -26,7 +26,7 @@ function Task({task, index}) {
     <Draggable draggableId={task.id} index={index}>
       {(provided, snapshot) => (
         <TaskList ref={provided.innerRef} isDragging={snapshot.isDragging} {...provided.draggableProps} {...provided.dragHandleProps}>
-          <TaskListText>{task.content}</TaskListText>
+          <TaskListText>{task.title} {task.assignee} {task.start_date} {task.end_date} {task.tags}</TaskListText>
         </TaskList>
       )}
     </Draggable>

@@ -20,6 +20,7 @@ export class FormComponent extends Component {
                     </Modal.Header>
                     <Modal.Body>
                         <Form onSubmit={this.props.onSubmit}>
+                            <input type="text"></input>
                             <br />
                             <Form.Group>
                                 <Form.Row>

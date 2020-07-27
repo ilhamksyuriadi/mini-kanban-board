@@ -4,6 +4,7 @@ import { CardState } from '../config/CardState';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import Card from '../components/Card';
 import styled from 'styled-components';
+import { v4 as uuid } from 'uuid';
 import TaskState from '../config/TaskData.json';
 
 const Title = styled.h1`
@@ -24,7 +25,41 @@ const CardContainer = styled.div`
 `
 
 const MainPage = () => {
-  const [state, setState] = useState(CardState);
+  const [state, setState] = useState(
+    {
+        tasks: {
+            'task-1': { 
+                id: 'task-1', 
+                title: 'Salto',
+                assignee: 'saprol',
+                start_date: '27-9-20',
+                end_date: '28-9-20',
+                tags: 'Front end'
+            }
+        },
+        cards: {
+            'card-1': {
+                id: 'card-1',
+                title: 'Backlog',
+                taskIds: ['task-1'],
+                color: '#FFBA08',
+            },
+            'card-2': {
+                id: 'card-2',
+                title: 'To Do',
+                taskIds: [],
+                color: '#17C9FF',
+            },
+            'card-3': {
+                id: 'card-3',
+                title: 'Done',
+                taskIds: [],
+                color: '#14E668',
+            },
+        },
+        cardOrder: ['card-1', 'card-2', 'card-3']
+    }
+  );
 
   const onDragEnd = (result) => {
     const {draggableId, source, destination, type} = result;
@@ -96,6 +131,37 @@ const MainPage = () => {
     }
   }
 
+  let value = {
+    title: React.createRef(),
+    assignee: React.createRef(),
+    tags: React.createRef(),
+    start_date: React.createRef(),
+    end_date: React.createRef()
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    let new_task = {
+      id: uuid(),
+      title: value.title.current.value,
+      assignee: value.assignee.current.value,
+      tags: value.tags.current.value,
+      start_date: value.start_date.current.value,
+      end_date: value.end_date.current.value,
+    }
+    alert("Task added !");
+    updateState(new_task)
+  }
+
+  const updateState = (new_task) => {
+    console.log(new_task);
+    let new_state = {...state};
+    new_state.tasks[new_task.id] = new_task;
+    new_state.cards['card-2'].taskIds.push(new_task.id);
+    setState(new_state)
+    console.log('from update state', new_task);
+  }
+
   return (
     <React.Fragment>
       <Title>Kanban Board</Title>
@@ -107,7 +173,13 @@ const MainPage = () => {
                   state.cardOrder.map((cardId, index) => {
                     const card = state.cards[cardId];
                     const tasks = card.taskIds.map(taskId => state.tasks[taskId]);
-                    return <Card key={cardId} card={card} tasks={tasks} index={index} />
+                    return <Card formHandle = {handleSubmit} 
+                                formValue = {value}
+                                key = {cardId} 
+                                card = {card} 
+                                tasks = {tasks} 
+                                index = {index}
+                            />
                   })
                 }
                 {provided.placeholder}
